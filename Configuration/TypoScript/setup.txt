@@ -1,0 +1,13 @@
+plugin.tx_sqldebug{
+    view{
+        templateRootPaths{
+            10 = EXT:sql_debug/Resources/Private/Templates/
+        }
+        partialRootPaths{
+            10 = EXT:sql_debug/Resources/Private/Partials/
+        }
+        layoutRootPaths{
+            10 = EXT:sql_debug/Resources/Private/Layouts/
+        }
+    }
+}

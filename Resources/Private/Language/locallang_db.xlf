@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-04-22T16:56:00Z" product-name="sql_debug">
+		<header/>
+		<body>
+            <trans-unit id="tx_sqldebug_domain_model_entity" xml:space="preserve">
+                <source>Entity</source>
+            </trans-unit>
+            <trans-unit id="tx_sqldebug_domain_model_entity.title" xml:space="preserve">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_sqldebug_domain_model_entity.real_date" xml:space="preserve">
+                <source>Real date</source>
+            </trans-unit>
+            <trans-unit id="tx_sqldebug_domain_model_entity.timestamp_date" xml:space="preserve">
+                <source>Timestamp date</source>
+            </trans-unit>
+		</body>
+	</file>
+</xliff>
