@@ -44,7 +44,9 @@ class EntityController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
      * List entities action
      */
     public function listAction(){
-        $this->view->assign('entities', $this->entityRepository->findByDate(new \DateTime()));
+        $entities = $this->entityRepository->findByDate(new \DateTime());
+        \TheCodingOwl\SqlDebug\Utilities\SqlDebuggerUtility::debugQueryResult($entities);
+        $this->view->assign('entities', $entities);
     }
     
     /**
