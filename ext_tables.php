@@ -22,3 +22,5 @@ if (!defined('TYPO3_MODE')) {
     'Pi1',
     'SqlDebug Plugin'
 );
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_sqldebug_domain_model_entity');

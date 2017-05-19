@@ -41,7 +41,7 @@ class SqlDebuggerUtility {
      *
      * @return array
      */
-    static public function debugQueryResult(QueryResultInterface $queryResult, $explainOutput = TRUE){
+    static public function debugQueryResult(QueryResultInterface $queryResult, $explainOutput = FALSE){
         $db = self::getDatabaseConnection();
         self::backupConfig($db);
         $db->debugOuput = 2;
@@ -82,6 +82,6 @@ class SqlDebuggerUtility {
      * @return \TYPO3\CMS\Core\Database\DatabaseConnection
      */
     static protected function getDatabaseConnection() {
-        return GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\DatabaseConnection::class);
+        return $GLOBALS['TYPO3_DB'];
     }
 }
