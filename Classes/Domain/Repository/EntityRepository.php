@@ -28,7 +28,7 @@ class EntityRepository extends \TYPO3\CMS\Extbase\Persistence\Repository{
      *
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findByDate(\DateTime $date): \TYPO3\CMS\Extbase\Persistence\QueryResultInterface{
+    public function findByDate(\DateTime $date) {
         $query = $this->createQuery();
         return $query->matching($query->greaterThan('timestampDate', $date))->execute();
     }

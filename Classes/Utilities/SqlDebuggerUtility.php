@@ -16,55 +16,72 @@
 namespace TheCodingOwl\SqlDebug\Utilities;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
- * This class contains a static function to debug extbase QueryResult objects via the Doctrine SQLLogger
+ * This class contains a static function to debug extbase QueryResult objects
  *
  * @author Kevin Ditscheid <kevinditscheid@gmail.com>
  */
 class SqlDebuggerUtility {
+    
+    /**
+     * Backed up configuration values of the DatabaseConnection
+     *
+     * @var array
+     */
+    static protected $backupConfig;
+    
     /**
      * Dump the SQL queries of a QueryReult object
-     * Returns an array of queries that had been executed
-     * Set the $dumpQueries parameter to FALSE, if you want to not dump the queries via DebuggerUtility::var_dump
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryResultInterface $queryResult The QueryResult object to debug
-     * @param bool $dumpQueries Set to TRUE if the queries should be dumped via DebuggerUtility::var_dump, FALSE otherwise
+     * @param bool $explainOutput Set to TRUE if you want the queries to be explained
      *
      * @return array
      */
-    static public function debugQueryResult(QueryResultInterface $queryResult, $dumpQueries = TRUE): array{
-        $className = $queryResult->getQuery()->getType();
-        $dataMapper = GeneralUtility::makeInstance(DataMapper::class);
-        $tableName = $dataMapper->getDataMap($className)->getTableName();
-        // create a new logger for the database queries to log
-        $logger = new \Doctrine\DBAL\Logging\DebugStack();
-        // get the Docrine Connection configuration object
-        $connectionConfiguration = static::getConnectionPool()->getConnectionForTable($tableName)->getConfiguration();
-        // backup the current logger
-        $loggerBackup = $connectionConfiguration->getSQLLogger();
-        // set our logger as the active logger object of the Doctrine connection
-        $connectionConfiguration->setSQLLogger($logger);
-        // we need to fetch our results here, to enable doctrine to fetch the results
+    static public function debugQueryResult(QueryResultInterface $queryResult, $explainOutput = TRUE){
+        $db = self::getDatabaseConnection();
+        self::backupConfig($db);
+        $db->debugOuput = 2;
+        $db->store_lastBuiltQuery = true;
+        $db->explainOutput = $explainOutput;
         $queryResult->toArray();
-        // restore the old logger
-        $connectionConfiguration->setSQLLogger($loggerBackup);
-        if( $dumpQueries ){
-            DebuggerUtility::var_dump($logger->queries, 'SQL queries');
-        }
-        return $logger->queries;
+        DebuggerUtility::var_dump($db->debug_lastBuiltQuery);
+        self::restoreConfig($db);
     }
     
     /**
-     * Get the ConnectionPool object
+     * Backup the DatabaseConnection values debugOutput, store_lastBuiltQuery and explainOutput
      *
-     * @return \TYPO3\CMS\Core\Database\ConnectionPool
+     * @param \TYPO3\CMS\Core\Database\DatabaseConnection $db The DatabaseConnection aka TYPO3_DB
      */
-    static protected function getConnectionPool(): ConnectionPool{
-        return GeneralUtility::makeInstance(ConnectionPool::class);
+    static protected function backupConfig(\TYPO3\CMS\Core\Database\DatabaseConnection $db){
+        self::$backupConfig = [
+            'debugOutput' => $db->debugOutput,
+            'store_lastBuiltQuery' => $db->store_lastBuiltQuery,
+            'explainOutput' => $db->explainOutput
+        ];
+    }
+    
+    /**
+     * Restore the DatabaseConnection values debugOutput, store_lastBuiltQuery and explainOutput
+     *
+     * @param \TYPO3\CMS\Core\Database\DatabaseConnection $db The DatabaseConnection aka TYPO3_DB
+     */
+    static protected function restoreConfig(\TYPO3\CMS\Core\Database\DatabaseConnection $db){
+        $db->debugOutput = self::$backupConfig['debugOutput'];
+        $db->store_lastBuiltQuery = self::$backupConfig['store_lastBuiltQuery'];
+        $db->explainOutput = self::$backupConfig['explainOutput'];
+    }
+    
+    /**
+     * Get the old DatabaseConnection
+     *
+     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+     */
+    static protected function getDatabaseConnection() {
+        return GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\DatabaseConnection::class);
     }
 }

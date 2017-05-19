@@ -12,19 +12,19 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Debug example',
-	'description' => 'Debugging extbase queries in TYPO3 8.7 with Doctrine DBAL',
+	'description' => 'Debugging extbase queries in TYPO3 6.2 up until 7.6',
 	'category' => 'plugin',
 	'author' => 'Kevin Ditscheid',
 	'author_email' => 'kevinditscheid@gmail.com',
-	'state' => 'experimental',
+	'state' => 'obsolete',
 	'internal' => '',
 	'uploadfolder' => '0',
 	'createDirs' => '',
 	'clearCacheOnLoad' => 0,
-	'version' => '1.0.0',
+	'version' => '0.1.0',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '8.7',
+			'typo3' => '6.2.99 - 7.6.99',
 		),
 		'conflicts' => array(
 		),

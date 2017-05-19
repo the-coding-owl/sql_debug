@@ -17,10 +17,8 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-call_user_func(function () {
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'TheCodingOwl.SqlDebug',
-        'Pi1',
-        'SqlDebug Plugin'
-    );
-});
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+    'TheCodingOwl.SqlDebug',
+    'Pi1',
+    'SqlDebug Plugin'
+);

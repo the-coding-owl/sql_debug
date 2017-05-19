@@ -1,2 +1,2 @@
 # sql_debug
-This is an example extension for debugging SQL queries in TYPO3 8 via the Doctrine SQLLoggers
+Debugging extbase queries in TYPO3 6.2 up until 7.6

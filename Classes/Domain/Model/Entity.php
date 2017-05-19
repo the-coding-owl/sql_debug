@@ -45,7 +45,7 @@ class Entity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity{
      *
      * @return string
      */
-    public function getTitle(): string {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -54,7 +54,7 @@ class Entity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity{
      *
      * @return \DateTime
      */
-    public function getRealDate(): \DateTime {
+    public function getRealDate() {
         return $this->realDate;
     }
 
@@ -63,7 +63,7 @@ class Entity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity{
      *
      * @return \DateTime
      */
-    public function getTimestampDate(): \DateTime {
+    public function getTimestampDate() {
         return $this->timestampDate;
     }
 
@@ -74,7 +74,7 @@ class Entity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity{
      *
      * @return self
      */
-    public function setTitle(string $title): self {
+    public function setTitle($title) {
         $this->title = $title;
         return $this;
     }
@@ -86,7 +86,7 @@ class Entity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity{
      *
      * @return self
      */
-    public function setRealDate(\DateTime $realDate): self {
+    public function setRealDate(\DateTime $realDate) {
         $this->realDate = $realDate;
         return $this;
     }
@@ -98,7 +98,7 @@ class Entity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity{
      *
      * @return self
      */
-    public function setTimestampDate(\DateTime $timestampDate): self {
+    public function setTimestampDate(\DateTime $timestampDate) {
         $this->timestampDate = $timestampDate;
         return $this;
     }
