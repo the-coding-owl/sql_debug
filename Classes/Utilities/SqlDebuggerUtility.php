@@ -37,7 +37,7 @@ class SqlDebuggerUtility {
      *
      * @return array
      */
-    static public function debugQueryResult(QueryResultInterface $queryResult, $dumpQueries = TRUE): array{
+    static public function debugQueryResult(QueryResultInterface $queryResult, bool $dumpQueries = TRUE): array{
         $className = $queryResult->getQuery()->getType();
         $dataMapper = GeneralUtility::makeInstance(DataMapper::class);
         $tableName = $dataMapper->getDataMap($className)->getTableName();
